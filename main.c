@@ -1,8 +1,14 @@
-
+/*
+ *  gcc main.c -o main -lm -O3 -fopenmp -std=c99
+ * 
+ * */
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
+#include "mct_utils.h"
+
+#include <omp.h>
   int **kraj;
   double **rozm;
    double ag[2];
@@ -52,19 +58,20 @@ void wiecej(int i,int j,int k,int l){
 		}
    
 }
-void srednia(int krok){
+/*void srednia(int krok){
 	//printf("Liczymy wartosci \n");
 	ile[0][krok]=0;
 	ile[1][krok]=0;
+	//int i,j;
 	for(int i=0;i<=N;i++){
 		for(int j=0;j<=N;j++){
 			if(kraj[i][j]==1) ile[0][krok]+=1;
 			if(kraj[i][j]==2) ile[1][krok]+=1;
 		}
 	}
-}
+}*/
 int main(int argc, char *argv[]){ //N,proc,ag1,ag2,kroki
-
+	if(argc !=6) return 0;
    N=atoi(argv[1]);
   double proc=strtod(argv[2],NULL);
 	printf("Powstała siatka %d na %d wypelniona na %lf zielonym \n",N,N,proc);
@@ -72,16 +79,23 @@ int main(int argc, char *argv[]){ //N,proc,ag1,ag2,kroki
   ag[1]=strtod(argv[4],NULL);
   int kroki=atoi(argv[5]);
   srand(time(0));
-  ile=malloc( 2 * sizeof( int * ) ); 
+	ile=malloc( 2 * sizeof( int * ) ); 
   ile[0]=malloc((kroki+1)*sizeof(int));
   ile[1]=malloc((kroki+1)*sizeof(int));
   kraj=malloc( N * sizeof( int * ) ); 
     rozm=malloc( N * sizeof( double * ) ); 
-    for (int i=0;i<=N;i++){
+    
+	//cppmallocl(ile[0],kroki,int);
+	//cppmallocl(ile[1],kroki,int); 
+	
+	int i=0;
+	int j=0;
+    for (i=0;i<N;i++){
 		
-		kraj[i]=malloc((N+1)*sizeof(int));
-		rozm[i]=malloc((N+1)*sizeof(double));
-        for(int j=0;j<=N;j++){
+		kraj[i]=malloc((N)*sizeof(int));
+		rozm[i]=malloc((N)*sizeof(double));
+		#pragma omp parallel for default(shared) private(j)  schedule(static)
+        for( j=0;j<=N;j++){
 			
             if(((float)rand()/(float)(RAND_MAX))<proc){
 				  kraj[i][j]=1;
@@ -93,34 +107,74 @@ int main(int argc, char *argv[]){ //N,proc,ag1,ag2,kroki
         }
         
     }
+     b_t();
 	printf("No to zaczynamy \n");
-    srednia(0);
-	for(int i=1;i<kroki;i++){
-		for(int j=0;j<N*N;j++){
+   // srednia(0);
+    ile[0][0]=0;
+	ile[1][0]=0;
+	
+		int k;
+		int z=0;
+		int c=0;
+		
+		for(k=0;k<N;k++){
+			#pragma omp parallel for default(shared) private(j)  schedule(static) reduction(+:z) reduction(+:c)
+			for( j=0;j<N;j++){
+				if(kraj[k][j]==1) z+=1;
+				if(kraj[k][j]==2) c+=1;
+		}
+		ile[0][0]+=z;
+		ile[1][0]+=c;
+		}
+	i=1;
+	j=0;
+	for( i=1;i<kroki;i++){
+		//printf("aa");
+		#pragma omp parallel for default(shared) private(j)  schedule(static)
+		for(j=0;j<N*N;j++){
 			int a=(rand()%N);
 			int b=(rand()%N);
 			int c,d;
 		
 			if((rand()%2) ==0) c=a-1;
-			if(c<0) c=N;
+			if(c<0) c=N-1;
 			else c=a+1;
-			if(c>N) c=0;
+			if(c>=N) c=0;
 			if((rand()%2)==0) d=b-1;
 			else d=b+1;
-			if(d<0) d=N;
-			if(d>N)d=0;
-	//	 printf("a=%d,b=%d,c=%d,d=%d",a,b,c,d);
+			if(d<0) d=N-1;
+			if(d>=N)d=0;
+		// printf("a=%d,b=%d,c=%d,d=%d",a,b,c,d);
 			if(kraj[a][b]!=0&&kraj[c][d]!=0) walka(a,b,c,d);
 			else if(kraj[a][b]!=0) wiecej(a,b,c,d);
 			else if(kraj[c][d]!=0) wiecej(c,d,a,b);
 		}
-		srednia(i);	
-	//	printf("zielony to %d \n",ile[0][i]);
+		//srednia(i);	
+		 ile[0][i]=0;
+		ile[1][i]=0;
+		int k;
+		int z=0;
+		int c=0;
+		
+		for(k=0;k<N;k++){
+			#pragma omp parallel for default(shared) private(j)  schedule(static) reduction(+:z) reduction(+:c)
+			for( j=0;j<N;j++){
+				if(kraj[k][j]==1) z+=1;
+				if(kraj[k][j]==2) c+=1;
+		}
+		ile[0][i]+=z;
+		ile[1][i]+=c;
+		}
 	}
-	for(int i=0;i<kroki;i++){
-		printf("krok %d, zielony %d, czerwony %d \n",i,ile[0][i],ile[1][i]);
+	double tio = e_t(); // stop timing
+    printf("# czas liczenia: %f sec\n", tio);
+	i=0;
+	printf("krok \t zielony \t czerwony \n");
+	for(i=0;i<kroki;i++){
+		printf(" %d \t %d \t %d \n",i,ile[0][i],ile[1][i]);
 	}
-	   for (int i=0;i<=N;i++){
+	i=0;
+	/*for (i=0;i<=N;i++){
 		free(kraj[i]);
 		free(rozm[i]);
 	}
@@ -128,6 +182,6 @@ int main(int argc, char *argv[]){ //N,proc,ag1,ag2,kroki
 	free(rozm);
 	free(ile[0]);
 	free(ile[1]);
-	free(ile);
+	free(ile);*/
     return 0;
 }
