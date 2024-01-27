@@ -1,11 +1,19 @@
 # HPC
 projekt
+podajemy argumenty :
+N - ilość symulacji
+proc - część jaką zjmuje kolor zielony
+ag1 - agresywność zielonego
+ag2 - agresywność czerwonego
+rozm - wspł rozmnażania zielonego
+rozm2 współczynik rozmnażania czerwonego
+kroki - ilość kroków symulacji.
 
-Mamy siatke moórek, gdzie kądza może mieć jeden z dwóch kolorów .
-Do koloru jest przywiązana cecha agresywności, i rozmnażania.
-Co krok jest losowana para komórek ktore mogą walczyć ze sobą (zależne od agresywności), albo zając puste miejsce, albo mieć neutralna interakcje.
-Walka zachodzi między komórkami o róznych kolorach, przegrana komórka pozostaje pusta.
-Każda neutralna interakcja zwiększa szanse współcznnk rozmnażania.
-Jeśli komórka kolorowa trafi na pustą, to wypełni ją z szansą zalezną od współczynnika rozmnożenia.
-Zwracany jest wykres ilości danych komórek w zależności od czasu.
+
+W każdym kroku w każdej symulacji kolory ze sobą walczą - to kto wygra zależy od agresji, oraz ich liczebności
+Następnie sie rozmnażają x+=x*rozm
+
+potem liczona jest średnia ilość kolorów, oraz odchylenie od średniej
+program zwraca średnie i oddchylenia dla każdego z kroków
+
 
