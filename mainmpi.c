@@ -162,8 +162,8 @@ int main(int argc, char *argv[]){ //N,proc,ag1,ag2,rozm,rozm,kroki,
 			double chance=(float)rand()/(float)(RAND_MAX);
 			double aga=ag[0];
 			double agc=ag[1];
-			double szaga=aga*(ka-kc)/(ka+kc);
-			double szagc=agc*(kc-ka)/(ka+kc);
+			double szaga=aga*((double)(ka-kc))/((double)(ka+kc));
+			double szagc=agc*((double)(kc-ka))/((double)(ka+kc));
 			if(chance<szaga&&chance<szagc){
 					int kaa=ka;
 					ka-=szagc*kc;
