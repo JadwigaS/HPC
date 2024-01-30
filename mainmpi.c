@@ -1,5 +1,5 @@
 /*
- *  gcc main.c -o main -lm -O3 -fopenmp -std=c99
+ *  
  * 	 mpicc mainmpi.c -o main -lm -O3 -Wall
  * */
 #include <stdio.h>
@@ -31,26 +31,6 @@ long int getNip( int ip , int np , long int N )
   return Nip;
 }
 
-/**
- * Function for uniform distribution of array elemnts
- * @param ip index of MPI process
- * @param np number of MPI processes 
- * @param N number of array elements
- * @return index of first elemten in global array. 
- * */
-long int get_i0( int ip , int np , long int N ) 
-{
-  long int Nip;
-  long int i0=0; 
-  int i;
-  for(i=0; i<ip; i++)
-  {
-    Nip  = N / np ;
-    if ( i < (N % np) ) Nip++ ;
-    i0+=Nip;
-  }
-  return i0;
-}
 
 
 
@@ -78,7 +58,7 @@ int main(int argc, char *argv[]){ //N,proc,ag1,ag2,rozm,rozm,kroki,
     MPI_Comm_size( MPI_COMM_WORLD , &np ) ; /* total number of processes */
     MPI_Comm_rank( MPI_COMM_WORLD , &ip ) ; /* id of process st 0 <= ip < np */   
      long int Nip = getNip(ip , np , N);
-    long int i0 = get_i0(ip , np , N);
+
     //size_t sized = sizeof(double)*Nip;
     size_t sizei=sizeof(int)*Nip;
     
