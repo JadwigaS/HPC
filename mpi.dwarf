@@ -1,0 +1,26 @@
+#!/bin/bash -l
+#PBS -N wielka_bitwa
+## NOTE: nodes have 20 physical cores and 40 virtual cores
+##       To allocate whole node you need to ask for ppn=40
+#PBS -l nodes=2:ppn=20
+#PBS -l walltime=1:00:00
+#PBS -j oe
+
+## ------ QUEUE SYSTEM ------
+## For submission use:
+##      qsub job.dwarf
+## For checking status use:
+##      qstat
+## To kill job use:
+##      qdel jobid
+
+# go to submission folder
+cd $PBS_O_WORKDIR/
+module load openmpi-gcc721-Cuda90/
+# and run commands
+mpirun -np 1 ./main 1000000 0.4 0.9 0.2 0.8 0.5 1000 >out1.txt
+mpirun -np 2 ./main 1000000 0.4 0.9 0.2 0.8 0.5 1000 >out2.txt
+mpirun -np 4 ./main 1000000 0.4 0.9 0.2 0.8 0.5 1000 >out4.txt
+mpirun -np 8 ./main 1000000 0.4 0.9 0.2 0.8 0.5 1000 >out8.txt
+mpirun -np 16 ./main 1000000 0.4 0.9 0.2 0.8 0.5 1000 >out16.txt
+mpirun -np 32 ./main 1000000 0.4 0.9 0.2 0.8 0.5 1000 >out32.txt
