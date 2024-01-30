@@ -20,3 +20,4 @@ program zwraca średnie i oddchylenia dla każdego z kroków, wraz z parametrami
 
 
 ![obraz](https://github.com/JadwigaS/HPC/assets/80515572/5faba772-0616-4531-a9a8-3cbe3f5dcf9d)
+![obraz](https://github.com/JadwigaS/HPC/assets/80515572/5021b5b6-2328-4cbf-a84a-34b0ec6e4b30)
