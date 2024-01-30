@@ -19,3 +19,4 @@ potem liczona jest średnia ilość każdego  kolorów, oraz odchylenie od śred
 program zwraca średnie i oddchylenia dla każdego z kroków, wraz z parametrami początkowymi i czasem wykonywania symulacji.
 
 
+![obraz](https://github.com/JadwigaS/HPC/assets/80515572/5faba772-0616-4531-a9a8-3cbe3f5dcf9d)
