@@ -16,7 +16,8 @@
 
 # go to submission folder
 cd $PBS_O_WORKDIR/
-module load openmpi-gcc721-Cuda90/
+#module load openmpi-gcc721-Cuda90/
+module load openmpi-1.8-x86_64
  mpicc mainmpi.c -o main -lm -O3 -Wall
 # and run commands
 mpirun -np 1 ./main 1000000 0.4 0.9 0.2 0.8 0.5 1000 >out1.txt
