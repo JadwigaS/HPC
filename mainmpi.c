@@ -218,15 +218,15 @@ int main(int argc, char *argv[]){ //N,proc,ag1,ag2,rozm,rozm,kroki,
 			printf(" %d \t %0.f \t %0.f \t %f \t %f \n",i,ile[0][i],ile[1][i],sqrt(ile[2][i]),sqrt(ile[3][i]));
 		}
 	}
-	MPI_Finalize();
-	/*for (i=0;i<=N;i++){
-		free(kraj[i]);
-		free(rozm[i]);
-	}
+	free(kraj[0]);
+	free(kraj[1]);
 	free(kraj);
-	free(rozm);
 	free(ile[0]);
 	free(ile[1]);
-	free(ile);*/
+	free(ile[2]);
+	free(ile[3]);
+	free(ile);
+	MPI_Finalize();
+
     return 0;
 }
