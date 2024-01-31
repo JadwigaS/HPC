@@ -1,24 +1,24 @@
 # HPC -projekt zaliczeniowy
-projekt symuluje walkę między dwoma kolorami - czerwonym i zielonym. Mogą one mieć rózne poziomy agresywnośći i rozmnażania.
+projekt symuluje walkę między dwoma kolorami - czerwonym i zielonym. Mogą one mieć różne poziomy agresywności i rozmnażania.
 podajemy argumenty :
 N - ilość symulacji 
-proc - część jaką zjmuje kolor zielony (od zera do 1)
+proc - część jaką zajmuje kolor zielony (od zera do 1)
 ag1 - agresywność zielonego (od zera do 1)
 ag2 - agresywność czerwonego (od zera do 1)
 rozm1 - współczynnik rozmnażania zielonego 
-rozm2 -współczynik rozmnażania czerwonego 
+rozm2 - współczynnik rozmnażania czerwonego 
 kroki - ilość kroków symulacji.
 
 
-W każdym kroku w każdej symulacji kolory mogą  ze sobą walczyć - losowana jest liczba, i porówynawana jest z współcyznnikami agresji przemnożonymi przez cześć jaką zajmuje dany kolor.
+W każdym kroku w każdej symulacji kolory mogą  ze sobą walczyć - losowana jest liczba, i porównywana jest z współcyznnikami agresji przemnożonymi przez cześć jaką zajmuje dany kolor.
 - to kto wygra zależy od wyniku porównania. Od ich agresji zależy też ilu wrogów zabiją.
  agresja= agresywność(1) * (x1)/(x1+x2)
 Następnie sie rozmnażają x+=x*rozm.
 
-potem liczona jest średnia ilość każdego  kolorów, oraz odchylenie od średniej
-program zwraca średnie i oddchylenia dla każdego z kroków, wraz z parametrami początkowymi i czasem wykonywania symulacji.
+Potem liczona jest średnia ilość każdego z kolorów, oraz odchylenie od średniej.
+Program zwraca średnie i odchylenia dla każdego z kroków, wraz z parametrami początkowymi i czasem wykonywania symulacji.
 
-
+Przykładowe wizualizacje wyników progamu:
 ![obraz](https://github.com/JadwigaS/HPC/assets/80515572/5faba772-0616-4531-a9a8-3cbe3f5dcf9d)
 ![obraz](https://github.com/JadwigaS/HPC/assets/80515572/5021b5b6-2328-4cbf-a84a-34b0ec6e4b30)
 Skalowanie:
