@@ -1,12 +1,12 @@
-# HPC
-projekt
+# HPC -projekt zaliczeniowy
+projekt symuluje walkę między dwoma kolorami - czerwonym i zielonym. Mogą one mieć rózne poziomy agresywnośći i rozmnażania.
 podajemy argumenty :
-N - ilość symulacji
-proc - część jaką zjmuje kolor zielony
-ag1 - agresywność zielonego
-ag2 - agresywność czerwonego
-rozm1 - współczynnik rozmnażania zielonego
-rozm2 -współczynik rozmnażania czerwonego
+N - ilość symulacji 
+proc - część jaką zjmuje kolor zielony (od zera do 1)
+ag1 - agresywność zielonego (od zera do 1)
+ag2 - agresywność czerwonego (od zera do 1)
+rozm1 - współczynnik rozmnażania zielonego 
+rozm2 -współczynik rozmnażania czerwonego 
 kroki - ilość kroków symulacji.
 
 
