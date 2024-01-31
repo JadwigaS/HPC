@@ -8,7 +8,11 @@ ag2 - agresywność czerwonego (od zera do 1)
 rozm1 - współczynnik rozmnażania zielonego 
 rozm2 - współczynnik rozmnażania czerwonego 
 kroki - ilość kroków symulacji.
+Polecenie kompilacji (na DWARFie ) i przykładowe uruchomienie
+  module load openmpi-1.8-x86_64
+  mpicc mainmpi.c -o main -lm -O3 -Wall
 
+  mpirun -np 4 ./main 1000000 0.4 0.9 0.2 0.8 0.5 1000 >out1.txt
 
 W każdym kroku w każdej symulacji kolory mogą  ze sobą walczyć - losowana jest liczba, i porównywana jest z współcyznnikami agresji przemnożonymi przez cześć jaką zajmuje dany kolor.
 - to kto wygra zależy od wyniku porównania. Od ich agresji zależy też ilu wrogów zabiją.
